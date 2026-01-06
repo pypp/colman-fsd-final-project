@@ -1,9 +1,10 @@
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { ProfileHeader } from "../../components/Profile/ProfileHeader/ProfileHeader";
 import { mockUsers } from "../../mock/data.mock";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import type { UserProfile } from "../../types";
+import { ProfilePosts } from "../../components/Profile/ProfilePosts/ProfilePosts";
 
 export const Profile = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -22,12 +23,13 @@ export const Profile = () => {
   }, [username]);
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4 }}>
+    <Container maxWidth="md">
       {isLoading
         ? "loading.."
         : profileData != null && (
             <>
               <ProfileHeader user={profileData} />
+              <ProfilePosts />
             </>
           )}
     </Container>

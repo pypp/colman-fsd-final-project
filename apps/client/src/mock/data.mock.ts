@@ -34,4 +34,18 @@ export const mockPosts: Post[] = [
     imageUrl: "https://picsum.photos/400/250?2",
     createdAt: "2025-01-02",
   },
+  {
+    id: "3",
+    title: "Exploring TypeScript",
+    body: "TypeScript has been a game-changer for my projects...",
+    imageUrl: "https://picsum.photos/400/250?3",
+    createdAt: "2025-01-03",
+  },
+  {
+    id: "4",
+    title: "Frontend Frameworks",
+    body: "A comparison between React, Vue, and Angular...",
+    imageUrl: "https://picsum.photos/400/250?4",
+    createdAt: "2025-01-04",
+  }
 ];
