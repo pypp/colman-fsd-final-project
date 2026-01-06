@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Typography } from "@mui/material";
-import type { UserProfile } from "../../../types";
+import type { UserProfile } from "@repo/types";
 
 interface Props {
   user: UserProfile;

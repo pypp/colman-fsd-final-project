@@ -1,9 +1,9 @@
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { ProfileHeader } from "../../components/Profile/ProfileHeader/ProfileHeader";
 import { mockUsers } from "../../mock/data.mock";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import type { UserProfile } from "../../types";
+import type { UserProfile } from "@repo/types";
 
 export const Profile = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
