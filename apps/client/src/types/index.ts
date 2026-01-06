@@ -1,2 +1,2 @@
-export * from "./user.type";
-export * from "./post.type";
+export * from "./user.interface";
+export * from "./post.interface";
