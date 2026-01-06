@@ -1,0 +1,21 @@
+import mongoose, { Schema, Document } from "mongoose";
+import { Post } from "@repo/types";
+
+/**
+ * Database shape
+ */
+export type PostDB = Omit<Post, "id">;
+
+/**
+ * Mongoose document type
+ */
+export type PostDocument = PostDB & Document;
+
+const PostSchema = new Schema<PostDocument>({
+  title: { type: String, required: true },
+  body: { type: String, required: true },
+  imageUrl: { type: String, required: true },
+  createdAt: { type: String, required: true },
+});
+
+export const PostModel = mongoose.model<PostDocument>("Post", PostSchema);
