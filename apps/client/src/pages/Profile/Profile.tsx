@@ -1,27 +1,28 @@
 import { Container } from "@mui/material";
 import { ProfileHeader } from "../../components/Profile/ProfileHeader/ProfileHeader";
-import { mockUsers } from "../../mock/data.mock";
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
 import type { UserProfile } from "@repo/types";
 import { ProfilePosts } from "../../components/Profile/ProfilePosts/ProfilePosts";
+import { useQuery } from "@tanstack/react-query";
+import { getPostByUsername } from "../../api/user";
 
 export const Profile = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [profileData, setProfileData] = useState<UserProfile | undefined>();
   const { username } = useParams();
 
-  useEffect(() => {
-    // TODO: fetch data from the server
-    const userData = mockUsers.find((user) => user.username === username);
-    setIsLoading(false);
-    if (!userData) {
-      // TODO: redirect to 404
-    }
+  const {
+    data: profileData,
+    isLoading,
+    isError,
+  } = useQuery<UserProfile, Error>({
+    queryKey: ["user", username],
+    queryFn: () => getPostByUsername(username!),
+    enabled: !!username,
+    retry: false,
+  });
 
-    setProfileData(userData);
-  }, [username]);
+  if (isLoading) return <Container maxWidth="md">Loading...</Container>;
 
+  if (isError || !profileData) return <Container maxWidth="md">User not found</Container>;
   return (
     <Container maxWidth="md">
       {isLoading
