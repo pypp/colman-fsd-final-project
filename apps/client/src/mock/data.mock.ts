@@ -1,11 +1,23 @@
-import type { Post, User } from "../types";
+import type { Post, UserProfile } from "../types";
 
-export const mockUser: User = {
-  id: "1",
-  name: "John Doe",
-  username: "johndoe",
-  avatarUrl: "https://i.pravatar.cc/150?img=3",
-};
+export const mockUsers: UserProfile[] = [
+  {
+    id: "1",
+    name: "Niv Naim",
+    username: "niv",
+    avatarUrl:
+      "https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Rachel-Montan%CC%83ez.jpeg",
+    bio: "Frontend developer · React · TypeScript · MUI",
+  },
+  {
+    id: "2",
+    name: "Netanel Henya",
+    username: "netanel",
+    avatarUrl:
+      "https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Rachel-Montan%CC%83ez.jpeg",
+    bio: "DevOps engineer · AWS · Docker · Kubernetes",
+  },
+];
 
 export const mockPosts: Post[] = [
   {
