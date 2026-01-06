@@ -1,0 +1,250 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "html"
+  ],
+  "eslint.quiet": true,
+  "restoreTerminals.terminals": {
+    "Forms - multiple terminals": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": []
+          }
+        ],
+        "setAsActive": true
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "forms-client",
+            "commands": [
+              "npm run dev -- --filter client-forms"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "forms-api-gateway",
+            "commands": [
+              "npm run dev -- --filter forms-api-gateway"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "forms-transporter",
+            "commands": [
+              "npm run dev -- --filter forms-transporter"
+            ]
+          }
+        ]
+      }
+    ],
+    "Management - multiple terminals": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": []
+          }
+        ],
+        "setAsActive": true
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "management-client",
+            "commands": [
+              "npm run dev -- --filter client-management"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "management-api-gateway",
+            "commands": [
+              "npm run dev -- --filter management-api-gateway"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "authorization",
+            "commands": [
+              "npm run dev -- --filter authorization"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "personal-info-importer",
+            "commands": [
+              "npm run dev -- --filter personal-info-importer"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "questionnaire",
+            "commands": [
+              "npm run dev -- --filter questionnaire"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "work",
+            "commands": [
+              "npm run dev -- --filter work"
+            ]
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "answer",
+            "commands": [
+              "npm run dev -- --filter answer"
+            ]
+          }
+        ]
+      }
+    ],
+    "Forms - single terminal": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": []
+          }
+        ],
+        "setAsActive": true
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "forms",
+            "commands": [
+              "npm run dev -- --filter=./forms/*"
+            ]
+          }
+        ]
+      }
+    ],
+    "Management - single terminal": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": []
+          }
+        ],
+        "setAsActive": true
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "management",
+            "commands": [
+              "npm run dev -- --filter=./management/*"
+            ]
+          }
+        ]
+      }
+    ],
+    "All apps": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": []
+          }
+        ]
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "apps",
+            "commands": [
+              "npm run dev -- --concurrency 100%"
+            ]
+          }
+        ]
+      }
+    ],
+    "Storybook": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": []
+          }
+        ],
+        "setAsActive": true
+      },
+      {
+        "splitTerminals": [
+          {
+            "name": "storybook",
+            "commands": [
+              "cd packages/ui",
+              "npm run storybook"
+            ]
+          }
+        ]
+      }
+    ],
+    "Clear": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": [
+              ""
+            ],
+            "shouldRunCommands": false
+          }
+        ]
+      }
+    ],
+    "Delete and install node_modules": [
+      {
+        "splitTerminals": [
+          {
+            "name": "root",
+            "commands": [
+              "npm cache clean -f",
+              "rm -rf node_modules/ apps/*/node_modules",
+              "npm install"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
