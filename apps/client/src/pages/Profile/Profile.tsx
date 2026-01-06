@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { ProfileHeader } from "../../components/Profile/ProfileHeader/ProfileHeader";
 import { mockUsers } from "../../mock/data.mock";
 import { useParams } from "react-router";
@@ -11,7 +11,7 @@ export const Profile = () => {
   const { username } = useParams();
 
   useEffect(() => {
-    // fetch data from the json
+    // TODO: fetch data from the server
     const userData = mockUsers.find((user) => user.username === username);
     setIsLoading(false);
     if (!userData) {
@@ -21,7 +21,6 @@ export const Profile = () => {
     setProfileData(userData);
   }, [username]);
 
-  // retirive the right user page
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       {isLoading
