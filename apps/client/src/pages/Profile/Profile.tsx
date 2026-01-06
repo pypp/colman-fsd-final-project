@@ -3,7 +3,7 @@ import { ProfileHeader } from "../../components/Profile/ProfileHeader/ProfileHea
 import { mockUsers } from "../../mock/data.mock";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import type { UserProfile } from "../../types";
+import type { UserProfile } from "@repo/types";
 import { ProfilePosts } from "../../components/Profile/ProfilePosts/ProfilePosts";
 
 export const Profile = () => {

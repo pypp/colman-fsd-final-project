@@ -1,4 +1,4 @@
-import type { Post, UserProfile } from "../types";
+import type { UserProfile, Post } from "@repo/types";
 
 export const mockUsers: UserProfile[] = [
   {
