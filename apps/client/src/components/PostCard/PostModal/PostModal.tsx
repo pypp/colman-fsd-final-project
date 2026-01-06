@@ -18,8 +18,6 @@ interface Props {
 }
 
 export const PostModal = ({ post, open, onClose }: Props) => {
-  if (!post) return null;
-
   return (
     <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
       <DialogTitle
