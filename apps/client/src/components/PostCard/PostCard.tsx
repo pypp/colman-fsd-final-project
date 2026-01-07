@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import type { Post } from "../../types";
+import type { Post } from "@repo/types";
 import { PostModal } from "./PostModal/PostModal";
 
 interface Props {
