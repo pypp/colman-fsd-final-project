@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "start:bg": "npm run build && nohup node dist/server.js > server.log 2>&1 &"
   },
   "dependencies": {
     "@types/cors": "^2.8.19",
