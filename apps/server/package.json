@@ -8,6 +8,7 @@
     "start:bg": "npm run build && nohup node dist/server.js > server.log 2>&1 &"
   },
   "dependencies": {
+    "@repo/types": "*",
     "@types/cors": "^2.8.19",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
