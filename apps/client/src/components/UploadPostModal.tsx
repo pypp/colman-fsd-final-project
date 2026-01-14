@@ -149,6 +149,7 @@ const UploadPostModal = ({ open, onClose }: UploadPostModalProps): JSX.Element =
             >
               <Box sx={{ display: "flex", alignItems: "center", p: 2, gap: 1 }}>
                 <Avatar sx={{ width: 28, height: 28 }} />
+                {/* TODO: after implement the context this should be the current user with his profile picture */}
                 <Typography fontWeight={600}>username</Typography>
               </Box>
 
@@ -163,7 +164,10 @@ const UploadPostModal = ({ open, onClose }: UploadPostModalProps): JSX.Element =
                   variant="standard"
                   value={caption}
                   onChange={(e) => setCaption(e.target.value)}
-                  InputProps={{ disableUnderline: true }}
+                  slotProps={{
+                    htmlInput: { maxLength: 2200 },
+                    input: { disableUnderline: true },
+                  }}
                 />
 
                 <Typography
