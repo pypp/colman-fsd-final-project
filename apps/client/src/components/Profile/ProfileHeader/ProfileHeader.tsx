@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const ProfileHeader = ({ user }: Props) => (
-  <Box mb={5} mt={15}>
+  <Box mb={5} mt={10}>
     <Box display="flex" alignItems="center" mt={-6} px={3}>
       <Avatar
         src={user.avatarUrl}
