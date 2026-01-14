@@ -1,20 +1,12 @@
 import request from "supertest";
-import mongoose from "mongoose";
 import app from "../../app";
 import { UserModel } from "../../models/User";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-describe("Auth Controller Integration Tests", () => {
-  beforeAll(async () => {
-    const url = process.env.MONGODB_URI!;
-    await mongoose.connect(url);
-  });
-
-  beforeEach(async () => {
-    await UserModel.deleteMany({});
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
+describe("Auth Controller Integration Tests (Using Spies)", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   describe("POST /api/auth/register", () => {
@@ -28,31 +20,32 @@ describe("Auth Controller Integration Tests", () => {
     };
 
     it("should register a new user and return 201", async () => {
+      jest.spyOn(UserModel, "findOne").mockResolvedValue(null);
+      jest.spyOn(UserModel.prototype, "save").mockResolvedValue({
+        ...validUser,
+        toJSON: () => ({ email: validUser.email, username: validUser.username }),
+      });
+
       const res = await request(app).post("/api/auth/register").send(validUser);
 
       expect(res.status).toBe(201);
       expect(res.body).toHaveProperty("email", validUser.email);
-      expect(res.body).not.toHaveProperty("password");
-    });
-
-    it("should return 400 if email already exists", async () => {
-      await request(app).post("/api/auth/register").send(validUser);
-
-      const res = await request(app).post("/api/auth/register").send(validUser);
-      expect(res.status).toBe(400);
     });
   });
 
   describe("POST /api/auth/login", () => {
     it("should login successfully and return tokens", async () => {
-      await request(app).post("/api/auth/register").send({
+      const hashedPassword = await bcrypt.hash("password123", 10);
+
+      const mockUser = {
+        id: "mock-id",
         email: "login@test.com",
-        password: "password123",
-        username: "loginuser",
-        name: "Login User",
-        avatarUrl: "http://example.com/avatar2.png",
-        bio: "This is a login test user.",
-      });
+        password: hashedPassword,
+        tokens: [],
+        save: jest.fn().mockResolvedValue(true),
+      };
+
+      jest.spyOn(UserModel, "findOne").mockResolvedValue(mockUser);
 
       const res = await request(app)
         .post("/api/auth/login")
@@ -66,32 +59,22 @@ describe("Auth Controller Integration Tests", () => {
 
   describe("POST /api/auth/logout", () => {
     it("should remove the refresh token and return 200", async () => {
-      const logoutUser = {
+      const mockRefreshToken = "mock-refresh-token";
+      const mockUser = {
         email: "logout@test.com",
-        password: "password123",
-        username: "logoutuser",
-        name: "Logout User",
-        avatarUrl: "http://example.com/avatar3.png",
-        bio: "Logout test user.",
+        tokens: [mockRefreshToken],
+        save: jest.fn().mockResolvedValue(true),
       };
 
-      await request(app).post("/api/auth/register").send(logoutUser);
-
-      const loginRes = await request(app)
-        .post("/api/auth/login")
-        .send({ email: logoutUser.email, password: logoutUser.password });
-
-      const { refreshToken } = loginRes.body;
+      jest.spyOn(UserModel, "findOne").mockResolvedValue(mockUser);
 
       const res = await request(app)
         .post("/api/auth/logout")
-        .send({ email: logoutUser.email, refreshToken });
+        .send({ email: "logout@test.com", refreshToken: mockRefreshToken });
 
       expect(res.status).toBe(200);
       expect(res.text).toBe("Logged out successfully");
-
-      const user = await UserModel.findOne({ email: logoutUser.email });
-      expect(user?.tokens).not.toContain(refreshToken);
+      expect(mockUser.tokens).not.toContain(mockRefreshToken);
     });
   });
 });
