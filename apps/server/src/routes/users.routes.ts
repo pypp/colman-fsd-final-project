@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { UserModel } from "../models/User";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -30,7 +31,7 @@ const router = Router();
  *                     type: string
  *                     example: "john@example.com"
  */
-router.get("/", async (_req, res) => {
+router.get("/", authMiddleware, async (_req, res) => {
   const users = await UserModel.find();
   res.json(users);
 });

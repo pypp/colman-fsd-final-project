@@ -8,6 +8,8 @@ export const mockUsers: UserProfile[] = [
     avatarUrl:
       "https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Rachel-Montan%CC%83ez.jpeg",
     bio: "Frontend developer · React · TypeScript · MUI",
+    email: "test@example.com",
+    password: "password123",
   },
   {
     id: "2",
@@ -16,6 +18,8 @@ export const mockUsers: UserProfile[] = [
     avatarUrl:
       "https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Rachel-Montan%CC%83ez.jpeg",
     bio: "DevOps engineer · AWS · Docker · Kubernetes",
+    email: "test@example.com",
+    password: "password123",
   },
 ];
 
@@ -47,5 +51,5 @@ export const mockPosts: Post[] = [
     body: "A comparison between React, Vue, and Angular...",
     imageUrl: "https://picsum.photos/400/250?4",
     createdAt: "2025-01-04",
-  }
+  },
 ];
