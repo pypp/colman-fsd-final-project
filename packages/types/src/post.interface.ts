@@ -1,7 +1,8 @@
+import { Types } from "mongoose";
+
 export interface Post {
-  id: string;
-  title: string;
-  body: string;
+  userId: Types.ObjectId;
+  caption: string;
   imageUrl?: string;
-  createdAt: string;
+  createdAt: Date;
 }
