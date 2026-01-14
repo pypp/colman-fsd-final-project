@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { googleAuth, login, register } from "../controllers/auth.controller";
+import { googleAuth, login, logout, register } from "../controllers/auth.controller";
 
 const router = Router();
 
@@ -17,5 +17,10 @@ router.post("/login", login);
  * Google Authentication
  */
 router.post("/google", googleAuth);
+
+/** 
+ * Logout a user
+ */
+router.post("/logout", logout);
 
 export default router;

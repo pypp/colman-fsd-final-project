@@ -19,7 +19,7 @@ export const login = async (req: Request, res: Response) => {
 
   try {
     const { accessToken, refreshToken } = await authService.loginUser(email, password);
-    
+
     res.status(200).json({
       accessToken,
       refreshToken,
@@ -37,13 +37,29 @@ export const googleAuth = async (req: Request, res: Response) => {
   }
 
   try {
-    const { accessToken, refreshToken, user } = await authService.googleSignin(credential);
-    
+    const { accessToken, refreshToken, user } =
+      await authService.googleSignin(credential);
+
     res.status(200).json({
       accessToken,
       refreshToken,
-      user
+      user,
     });
+  } catch (err: any) {
+    res.status(400).send(err.message);
+  }
+};
+
+export const logout = async (req: Request, res: Response) => {
+  const { email, refreshToken } = req.body;
+
+  if (!email || !refreshToken) {
+    return res.status(400).send("Email and refresh token are required");
+  }
+
+  try {
+    await authService.logoutUser(email, refreshToken);
+    res.status(200).send("Logged out successfully");
   } catch (err: any) {
     res.status(400).send(err.message);
   }

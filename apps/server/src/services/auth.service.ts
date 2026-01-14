@@ -65,7 +65,7 @@ export const googleSignin = async (credential: string) => {
   const payload = ticket.getPayload();
   if (!payload || !payload.email) throw new Error("Invalid Google token");
 
-  const { email, name, picture, sub: googleId } = payload;
+  const { email, name, picture } = payload;
 
   let user = await UserModel.findOne({ email });
 
@@ -93,4 +93,14 @@ export const googleSignin = async (credential: string) => {
   await user.save();
 
   return { accessToken, refreshToken, user };
+};
+
+export const logoutUser = async (email: string, refreshToken: string) => {
+  const user = await UserModel.findOne({ email });
+  if (!user) throw new Error("User not found");
+
+  user.tokens = user.tokens ? user.tokens.filter((t) => t !== refreshToken) : [];
+  
+  await user.save();
+  return { message: "Logged out successfully" };
 };

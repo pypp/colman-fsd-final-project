@@ -20,6 +20,20 @@ const UserSchema = new Schema<UserDocument>({
   avatarUrl: { type: String, required: true },
   bio: { type: String, required: true },
   tokens: { type: [String], default: [] },
+},
+{
+  toJSON: {
+    transform: (doc, ret) => {
+      // Cast 'ret' to any to allow deletion of required fields
+      const result = ret as any;
+      delete result.password; 
+      delete result.tokens;   
+      delete result.__v;
+      result.id = result._id;
+      delete result._id;
+      return result;
+    }
+  }
 });
 
 export const UserModel = mongoose.model<UserDocument>("User", UserSchema);
