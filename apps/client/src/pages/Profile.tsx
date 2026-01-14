@@ -1,10 +1,10 @@
 import { Container } from "@mui/material";
-import { ProfileHeader } from "../../components/Profile/ProfileHeader/ProfileHeader";
-import { useParams } from "react-router";
+import { ProfileHeader } from "../components/Profile/ProfileHeader/ProfileHeader";
+import { useParams } from "react-router-dom";
 import type { UserProfile } from "@repo/types";
-import { ProfilePosts } from "../../components/Profile/ProfilePosts/ProfilePosts";
+import { ProfilePosts } from "../components/Profile/ProfilePosts/ProfilePosts";
 import { useQuery } from "@tanstack/react-query";
-import { getPostByUsername } from "../../api/user";
+import { getPostByUsername } from "../api/user";
 
 export const Profile = () => {
   const { username } = useParams();
@@ -20,11 +20,13 @@ export const Profile = () => {
     retry: false,
   });
 
-  if (isLoading) return <Container maxWidth="md">Loading...</Container>;
+  if (isLoading) return <Container disableGutters>Loading...</Container>;
 
-  if (isError || !profileData) return <Container maxWidth="md">User not found</Container>;
+  if (isError || !profileData)
+    return <Container disableGutters>User not found</Container>;
+
   return (
-    <Container maxWidth="md">
+    <Container disableGutters>
       {isLoading
         ? "loading.."
         : profileData != null && (
