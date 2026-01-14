@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { UserModel } from "../models/User";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = Router();
 
 /**
  * GET all users
  */
-router.get("/", async (_req, res) => {
+router.get("/", authMiddleware, async (_req, res) => {
   const users = await UserModel.find();
   res.json(users);
 });
