@@ -1,6 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserModel } from "../models/User";
+import { OAuth2Client } from "google-auth-library";
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const registerUser = async (userData: {
   email: string;
@@ -51,4 +54,43 @@ export const loginUser = async (email: string, password: string) => {
   await user.save();
 
   return { accessToken, refreshToken };
+};
+
+export const googleSignin = async (credential: string) => {
+  const ticket = await client.verifyIdToken({
+    idToken: credential,
+    audience: process.env.GOOGLE_CLIENT_ID,
+  });
+
+  const payload = ticket.getPayload();
+  if (!payload || !payload.email) throw new Error("Invalid Google token");
+
+  const { email, name, picture, sub: googleId } = payload;
+
+  let user = await UserModel.findOne({ email });
+
+  if (!user) {
+    user = new UserModel({
+      email,
+      name,
+      avatarUrl: picture,
+      username: email.split("@")[0],
+      password: "external_auth_no_password", // Placeholder
+    });
+    await user.save();
+  }
+
+  const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET!;
+  const expiresIn = Number(process.env.JWT_TOKEN_EXPIRATION);
+  const accessToken = jwt.sign({ id: user.id }, accessTokenSecret, {
+    expiresIn,
+  });
+
+  const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET!;
+  const refreshToken = jwt.sign({ id: user.id }, refreshTokenSecret);
+
+  user.tokens = user.tokens ? [...user.tokens, refreshToken] : [refreshToken];
+  await user.save();
+
+  return { accessToken, refreshToken, user };
 };
