@@ -12,10 +12,10 @@ export type PostDB = Omit<Post, "id">;
 export type PostDocument = PostDB & Document;
 
 const PostSchema = new Schema<PostDocument>({
-  title: { type: String, required: true },
-  body: { type: String, required: true },
+  caption: { type: String, required: true },
   imageUrl: { type: String, required: true },
-  createdAt: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 export const PostModel = mongoose.model<PostDocument>("Post", PostSchema);

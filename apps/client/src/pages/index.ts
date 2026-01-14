@@ -1,1 +1,3 @@
-export { default as Profile } from "./Profile/Profile";
+export { default as Profile } from "./Profile";
+export { default as Home } from "./Home";
+export { default as DirectMessages } from "./DirectMessages";
