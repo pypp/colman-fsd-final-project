@@ -8,8 +8,8 @@ export const mockUsers: UserProfile[] = [
     avatarUrl:
       "https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Rachel-Montan%CC%83ez.jpeg",
     bio: "Frontend developer · React · TypeScript · MUI",
-    email: "",
-    password: "",
+    email: "test@example.com",
+    password: "password123",
   },
   {
     id: "2",
@@ -18,8 +18,8 @@ export const mockUsers: UserProfile[] = [
     avatarUrl:
       "https://cultivatedculture.com/wp-content/uploads/2019/12/LinkedIn-Profile-Picture-Example-Rachel-Montan%CC%83ez.jpeg",
     bio: "DevOps engineer · AWS · Docker · Kubernetes",
-    email: "",
-    password: "",
+    email: "test@example.com",
+    password: "password123",
   },
 ];
 
