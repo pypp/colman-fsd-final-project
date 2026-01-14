@@ -6,5 +6,5 @@ export interface UserProfile {
   password: string;
   avatarUrl: string;
   bio: string;
-  tokens: string[];
+  tokens?: string[];
 }
