@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import usersRoutes from "./routes/users.routes";
 import postsRoutes from "./routes/posts.routes";
+import { setupSwagger } from "./swagger";
 
 const app = express();
 
@@ -16,5 +17,7 @@ app.use(
 
 app.use("/api/users", usersRoutes);
 app.use("/api/posts", postsRoutes);
+
+setupSwagger(app);
 
 export default app;
