@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import type { UserProfile } from "@repo/types";
 import { ProfilePosts } from "../components/Profile/ProfilePosts/ProfilePosts";
 import { useQuery } from "@tanstack/react-query";
-import { getPostByUsername } from "../api/user";
+import { getUserByUsername } from "../api/user";
 
 export const Profile = () => {
   const { username } = useParams();
@@ -15,7 +15,7 @@ export const Profile = () => {
     isError,
   } = useQuery<UserProfile, Error>({
     queryKey: ["user", username],
-    queryFn: () => getPostByUsername(username!),
+    queryFn: () => getUserByUsername(username!),
     enabled: !!username,
     retry: false,
   });
