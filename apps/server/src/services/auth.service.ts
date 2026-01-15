@@ -1,6 +1,7 @@
+import { UserProfile, UserWithAuthTokens } from '@repo/types';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { UserModel } from "../models/User";
+import { UserDocument, UserModel } from "../models/User";
 import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -12,7 +13,7 @@ export const registerUser = async (userData: {
   name: string;
   avatarUrl?: string;
   bio?: string;
-}) => {
+}): Promise<UserDocument> => {
   const existingUser = await UserModel.findOne({ email: userData.email });
   if (existingUser) throw new Error("User already registered");
 
@@ -24,11 +25,11 @@ export const registerUser = async (userData: {
     password: encryptedPassword,
   });
 
-  await newUser.save();
-  return newUser;
+  const savedUser = await newUser.save();
+  return savedUser;
 };
 
-export const loginUser = async (email: string, password: string) => {
+export const loginUser = async (email: string, password: string): Promise<UserWithAuthTokens> => {
   if (!email || !password) throw new Error("bad email or password");
 
   const user = await UserModel.findOne({ email });
@@ -51,9 +52,9 @@ export const loginUser = async (email: string, password: string) => {
   } else {
     user.tokens.push(refreshToken);
   }
-  await user.save();
+  const savedUser = await user.save();
 
-  return { accessToken, refreshToken };
+  return { accessToken, refreshToken, user: savedUser };
 };
 
 export const googleSignin = async (credential: string) => {
@@ -95,7 +96,7 @@ export const googleSignin = async (credential: string) => {
   return { accessToken, refreshToken, user };
 };
 
-export const logoutUser = async (email: string, refreshToken: string) => {
+export const logoutUser = async (email: string, refreshToken: string): Promise<{ message: string }> => {
   const user = await UserModel.findOne({ email });
   if (!user) throw new Error("User not found");
 

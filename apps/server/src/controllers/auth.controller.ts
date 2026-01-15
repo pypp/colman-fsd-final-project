@@ -18,11 +18,15 @@ export const login = async (req: Request, res: Response) => {
   }
 
   try {
-    const { accessToken, refreshToken } = await authService.loginUser(email, password);
+    const { accessToken, refreshToken, user } = await authService.loginUser(
+      email,
+      password,
+    );
 
     res.status(200).json({
       accessToken,
       refreshToken,
+      user,
     });
   } catch (err: any) {
     res.status(400).send(err.message);
