@@ -67,7 +67,6 @@ const Navbar = (): JSX.Element => {
               <SendOutlined />
             </IconButton>
 
-            {/* 6. Dynamic Profile Link based on actual user data */}
             <IconButton title="Profile" component={Link} to={`/${user?.username}`}>
               <Avatar
                 sx={{ width: 24, height: 24 }}
@@ -75,7 +74,6 @@ const Navbar = (): JSX.Element => {
               />
             </IconButton>
 
-            {/* 7. The Logout Button */}
             <IconButton
               title="Logout"
               onClick={handleLogout}
