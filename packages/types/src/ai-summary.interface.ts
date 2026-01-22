@@ -8,3 +8,9 @@ export interface AiSummary {
   };
   createdAt: Date;
 }
+
+export interface AiSearchResponse {
+  title: string;
+  summary: string;
+  keyPoints: string[];
+}
