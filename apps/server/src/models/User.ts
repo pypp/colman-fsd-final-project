@@ -28,7 +28,7 @@ const UserSchema = new Schema<UserDocument>(
   },
   {
     toJSON: {
-      transform: (doc, ret) => {
+      transform: (_doc, ret) => {
         const result = ret as any;
         delete result.password;
         delete result.tokens;

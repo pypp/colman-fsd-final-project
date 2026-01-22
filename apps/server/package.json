@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@repo/types": "*",
     "@types/cors": "^2.8.19",
     "bcrypt": "^6.0.0",
